@@ -19,6 +19,11 @@ data=pd.read_csv('covid.csv')
 d1=data.groupby("iso_code",as_index=False)['total_cases'].max()
 d1 = d1.dropna(subset=['total_cases'])
 
+colors = {
+   'background': '#4FE377',
+   'text': '#111111'
+}
+
 fig = px.scatter_geo(d1, locations="iso_code",
                     size="total_cases", # size of markers, "total_cases" is one of the columns of covid data
                     color="iso_code", # which column to use to set the color of markers
@@ -29,11 +34,6 @@ fig.update_layout(
    paper_bgcolor=colors['background'],
    font_color=colors['text']
 )
-
-colors = {
-   'background': '#4FE377',
-   'text': '#111111'
-}
  
 app.layout = html.Div(children=[
    html.H1(children='Hello ! Welcome to Covid Dashbord',
@@ -57,4 +57,4 @@ app.layout = html.Div(children=[
 ])
  
 if __name__ == '__main__':
-   app.run_server(mode="external")
+   app.run_server(debug=True)
